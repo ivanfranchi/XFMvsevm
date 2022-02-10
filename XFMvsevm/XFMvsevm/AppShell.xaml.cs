@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Xamarin.Forms;
-using XFMvsevm.ViewModels;
+﻿using Xamarin.Forms;
 using XFMvsevm.Views;
 
 namespace XFMvsevm
@@ -11,6 +8,7 @@ namespace XFMvsevm
         public AppShell()
         {
             InitializeComponent();
+
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
         }

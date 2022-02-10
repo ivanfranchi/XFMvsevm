@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XFMvsevm.Android", "XFMvsev
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XFMvsevm", "XFMvsevm\XFMvsevm\XFMvsevm.csproj", "{CEBD1C04-1644-42AA-86FC-F436E2FF9649}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XFMvsevm.Core", "XFMvsevm.Core\XFMvsevm.Core.csproj", "{80ABC6B8-9322-4063-B0D3-9E145ABD63C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{CEBD1C04-1644-42AA-86FC-F436E2FF9649}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEBD1C04-1644-42AA-86FC-F436E2FF9649}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CEBD1C04-1644-42AA-86FC-F436E2FF9649}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{80ABC6B8-9322-4063-B0D3-9E145ABD63C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80ABC6B8-9322-4063-B0D3-9E145ABD63C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80ABC6B8-9322-4063-B0D3-9E145ABD63C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80ABC6B8-9322-4063-B0D3-9E145ABD63C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

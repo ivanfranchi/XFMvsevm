@@ -1,8 +1,6 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
+using XFMvsevm.Core.HTTP.Scraper;
 using XFMvsevm.Services;
-using XFMvsevm.Views;
 
 namespace XFMvsevm
 {
@@ -14,6 +12,9 @@ namespace XFMvsevm
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
+            DependencyService.Register<CoreScraper>();
+            DependencyService.Register<ScraperService>();
+
             MainPage = new AppShell();
         }
 
