@@ -42,8 +42,9 @@
   <ItemGroup>
     <Compile Include="HTTP\MotivatedHttpClient.cs" />
     <Compile Include="HTTP\Scraper\CoreScraper.cs" />
-    <Compile Include="Parser\FileReader.cs" />
-    <Compile Include="Parser\PredicateBuilder.cs" />
+    <Compile Include="HTTP\Parser\FileReader.cs" />
+    <Compile Include="HTTP\Parser\PredicateBuilder.cs" />
+    <Compile Include="HTTP\Scraper\ScrapeResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack, Version=1.11.42.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">

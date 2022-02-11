@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace XFMvsevm.Models
+﻿namespace XFMvsevm.Models
 {
     public class Item
     {

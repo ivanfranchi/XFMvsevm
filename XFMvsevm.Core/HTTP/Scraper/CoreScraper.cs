@@ -1,22 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using XFMvsevm.Core.Parser;
+using XFMvsevm.Core.HTTP.Parser;
 
 namespace XFMvsevm.Core.HTTP.Scraper
 {
     public class CoreScraper
     {
-        public async Task<IEnumerable<string>> ScrapeMvsevmAsync(CancellationToken cancellationToken)
+        public async Task<ScrapeResult> ScrapeMvsevmAsync(
+            string url, 
+            IEnumerable<string> keywords,
+            CancellationToken cancellationToken)
         {
-            var urls = new List<string>();
-            urls.Add("http://www.computinghistory.org.uk/pages/28568/Visiting/");
-
             var client = MotivatedHttpClient.MotivateClient();
-            var message = MotivatedHttpClient.GetEnhancedMessage(urls[0]);
+            var message = MotivatedHttpClient.GetEnhancedMessage(url);
             var responseBody = await MotivatedHttpClient.GetMessage(client, message, cancellationToken);
 
-            return FileReader.ReadFile(responseBody);
+            var result = FileReader.ReadFile(keywords, responseBody);
+            result.Url = url;
+            return result;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using EnsureThat;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -10,24 +9,13 @@ namespace XFMvsevm.Services
     public class ScraperService : IScraperService
     {
         public CoreScraper _coreScraper => DependencyService.Get<CoreScraper>();
-        
-        //CoreScraper _coreScraper;
-        //public ScraperService(CoreScraper coreScraper)
-        //{
-        //    EnsureArg.IsNotNull(coreScraper, nameof(CoreScraper));
 
-        //    _coreScraper = coreScraper;
-        //}
-
-        public ScraperService()
+        public Task<ScrapeResult> ScrapeMvsevmAsync(
+            string url,
+            IEnumerable<string> keywords,
+            CancellationToken cancellationToken)
         {
-            
-        }
-
-        public async Task<IEnumerable<string>> ScrapeMvsevmAsync(CancellationToken cancellationToken)
-        {
-            var tmp = await _coreScraper.ScrapeMvsevmAsync(cancellationToken);
-            return tmp;
+            return _coreScraper.ScrapeMvsevmAsync(url, keywords, cancellationToken);
         }
     }
 }

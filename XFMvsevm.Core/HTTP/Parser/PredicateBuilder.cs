@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace XFMvsevm.Core.Parser
+namespace XFMvsevm.Core.HTTP.Parser
 {
     public static class PredicateBuilder
     {

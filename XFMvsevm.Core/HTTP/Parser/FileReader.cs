@@ -3,24 +3,32 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using XFMvsevm.Core.HTTP.Scraper;
 
-namespace XFMvsevm.Core.Parser
+namespace XFMvsevm.Core.HTTP.Parser
 {
     public static class FileReader
     {
-        public static IEnumerable<string> ReadFile(string rawText)
+        public static ScrapeResult ReadFile(IEnumerable<string> keywords, string rawText)
         {
             var lines = GetLines(rawText);
-            var goodRows = Search4KeyWords(lines);
+            var goodRows = Search4KeyWords(lines, keywords);
             string tmp;
+            var results = new List<string>();
 
             foreach (var row in goodRows)
             {
                 tmp = row;
                 tmp = CleanRowStuff(tmp);
                 tmp = ReplaceSpecificStuff(tmp);
-                yield return tmp;
+                results.Add(tmp);
             }
+
+            return new ScrapeResult
+            {
+                Count = results.Count,
+                Results = results
+            };
         }
 
         private static IEnumerable<string> GetLines(string rawText)
@@ -42,33 +50,29 @@ namespace XFMvsevm.Core.Parser
             string tmp;
             foreach (var line in lines)
             {
+                if (line.Contains("background-color") || line.Contains("function()"))
+                {
+                    continue;
+                }
+
                 tmp = Regex.Replace(line, pattern, "");
-                result.Add(tmp);
+                result.Add(tmp + "♣"); //"♣" to be removed. Used as line terminator
             }
 
             return result;
         }
 
-        private static IEnumerable<string> Search4KeyWords(IEnumerable<string> list)
+        private static IEnumerable<string> Search4KeyWords(IEnumerable<string> list, IEnumerable<string> keywords)
         {
             var predicate = PredicateBuilder.False<string>();
 
-            foreach (var word in Keywords())
+            foreach (var word in keywords)
             {
                 string temp = word;
                 predicate = predicate.Or(s => s.ToLower().Contains(temp.ToLower()));
             }
 
             return list.Where(predicate.Compile());
-        }
-
-        private static IEnumerable<string> Keywords()
-        {
-            return new List<string>
-            {
-                "open",
-                "fee"
-            };
         }
 
         private static string CleanRowStuff(string line)

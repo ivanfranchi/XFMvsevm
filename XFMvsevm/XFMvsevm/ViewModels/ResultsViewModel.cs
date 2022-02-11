@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XFMvsevm.Core.HTTP.Scraper;
 using XFMvsevm.Services;
 
 namespace XFMvsevm.ViewModels
 {
     public class ResultsViewModel : BaseViewModel
     {
-        //private readonly IScraperService _scraperService;
         public IScraperService _scraperService => DependencyService.Get<IScraperService>();
 
         public ResultsViewModel()
@@ -17,14 +18,6 @@ namespace XFMvsevm.ViewModels
 
             Init();
         }
-
-        //public ResultsViewModel(IScraperService scraperService)
-        //{
-        //    EnsureArg.IsNotNull(scraperService);
-        //    _scraperService = scraperService;
-
-        //    Init();
-        //}
 
         public ICommand SearchCommand { get; set; }
 
@@ -40,17 +33,46 @@ namespace XFMvsevm.ViewModels
             SearchCommand = new Command(async () => await RunScrape());
         }
 
+        private static IEnumerable<string> Keywords()
+        {
+            return new List<string>
+            {
+                "open",
+                "fee"
+            };
+        }
+
+        private static IEnumerable<string> Urls()
+        {
+            return new List<string>
+            {
+                "http://www.computinghistory.org.uk/pages/28568/Visiting/",
+            };
+        }
+
         private async Task RunScrape()
         {
-            var res = await _scraperService.ScrapeMvsevmAsync(default);
-            
-            var linearRes = "";
+            var scrapeResults = new List<ScrapeResult>();
 
-            foreach (var str in res)
+            foreach (var url in Urls())
             {
-                linearRes += str + Environment.NewLine + Environment.NewLine;
+                var res = await _scraperService.ScrapeMvsevmAsync(url, Keywords(), default);
+                scrapeResults.Add(res);
             }
 
+            string linearRes = "";
+            foreach (var res in scrapeResults)
+            {
+                linearRes += "♣" + res.Url + Environment.NewLine + Environment.NewLine;
+                foreach (var str in res.Results)
+                {
+                    linearRes += str;
+                }
+
+                linearRes += Environment.NewLine;
+                linearRes += "------------------------------------------------------";
+                linearRes += Environment.NewLine + Environment.NewLine;
+            }
             SearchResults = linearRes;
         }
     }
